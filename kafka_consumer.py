@@ -10,7 +10,7 @@ conn = psycopg2.connect(
     port='5432',
     database='location_db',
     user='postgres',
-    password='Adanali_01'
+    password='your_password'
 )
 
 cur = conn.cursor()
@@ -71,5 +71,3 @@ cur.close()
 conn.close()
 
 # C:\kafka>bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic location-topic --from-beginning
-
-
