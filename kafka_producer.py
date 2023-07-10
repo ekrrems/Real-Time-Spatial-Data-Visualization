@@ -1,7 +1,7 @@
 from confluent_kafka import Producer
 
 bootstrap_servers = 'localhost:9092'
-topic = 'location_data'
+topic = 'location-topic'
 
 producer_config = {
     'bootstrap.servers': bootstrap_servers
@@ -9,12 +9,21 @@ producer_config = {
 
 producer = Producer(producer_config)
 
-message_value = 'Hello, Kafka!'
-message_key = 'your_key'  # Optional: specify a key for message partitioning
+def delivery_report(err, msg):
+    if err:
+        print(f"Error: {err}")
+    else:
+        print(f'Message delivered to {msg.topic()} [{msg.partition()}] at offset {msg.offset()}')
 
-producer.produce(topic=topic, value=message_value, key=message_key)
+# for i in range(10):
+#     message = f"message number {i}"
+#     producer.produce(topic=topic, value=message, callback=delivery_report)
 
-# Flush the producer to ensure the message is sent
-producer.flush()
+# # Flush the producer to ensure the message is sent
+# producer.flush()
 
-producer.close()
+def send_kafka_message(message):
+    producer.produce(topic=topic, value=message, callback=delivery_report)
+    producer.flush()
+
+# bin\windows\kafka-console-producer.bat --bootstrap-server localhost:9092 --topic location-topic

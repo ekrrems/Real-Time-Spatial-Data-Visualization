@@ -22,4 +22,7 @@ def send_location(location:LocationRequest):
     hour = now.time().hour
     minute = now.time().minute
 
-    return {"message": f"Location Received! ({date}, {hour}:{minute})"}
+    return {"message": f"Location Received! ({date}, {hour}:{minute})", 
+            "name": str(name),
+            "location": str(loc),
+            "date": str(date)}
