@@ -15,12 +15,6 @@ def delivery_report(err, msg):
     else:
         print(f'Message delivered to {msg.topic()} [{msg.partition()}] at offset {msg.offset()}')
 
-# for i in range(10):
-#     message = f"message number {i}"
-#     producer.produce(topic=topic, value=message, callback=delivery_report)
-
-# # Flush the producer to ensure the message is sent
-# producer.flush()
 
 def send_kafka_message(message):
     producer.produce(topic=topic, value=message, callback=delivery_report)
